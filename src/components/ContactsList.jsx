@@ -4,9 +4,9 @@ import styles from "./ContactsList.module.css";
 
 const ContactsList = ({ contacts, onDelete }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <h3>Contacts List</h3>
-      <div className={styles.container}>
+      <div className={styles.contacts}>
         {console.log(contacts)}
         {contacts.length ? (
           contacts.map((contact) => (

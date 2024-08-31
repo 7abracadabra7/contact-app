@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./AddContact.module.css";
 
 const AddContact = () => {
   const [contacts, setContacts] = useState([]);
@@ -38,7 +39,7 @@ const AddContact = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <input
         type="text"
         placeholder="Name"

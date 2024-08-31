@@ -15,9 +15,8 @@ const ContactItem = ({ contact, onDelete }) => {
         <p>{contact.number}</p>
       </div>
       <div className={styles.icons}>
-        <span>👁</span>
-        <span>✏</span>
-        <span onClick={() => onDelete(contact.id)}>🗑</span>
+        <button>Edit</button>
+        <button onClick={() => onDelete(contact.id)}>Delete</button>
       </div>
     </div>
   );

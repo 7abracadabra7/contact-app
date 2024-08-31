@@ -1,5 +1,12 @@
 .container {
-  display: grid;
-  grid-template-columns: 2;
+  margin-top: 2rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 130%;
+  padding: 1.5rem;
 }
 
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}

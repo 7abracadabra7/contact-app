@@ -1,10 +1,15 @@
 .card {
   display: flex;
   flex-direction: row;
-  width: 450px;
+  width: 100%;
+  border-radius: 5px;
   gap: 10px;
-  border: 1px solid black;
+  border: 3px solid black;
   align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  justify-content: space-evenly;
+  border-image: linear-gradient(to right, purple, #5b0cc3) 1;
 }
 
 .profileImage img {
@@ -24,14 +29,28 @@
   display: inline-block;
   border: 1px solid black;
   padding-left: 10px;
+  margin-bottom: 3px;
+  border-radius: 3px;
 }
 
 .icons {
   display: flex;
   flex-direction: column;
+  height: 80px;
+  justify-content: space-between;
 }
 
-.icons span {
-  border: 1px solid black;
-  background-color: red;
+.icons button {
+  border: 2px solid white;
+  padding: 10px 35px;
+  background: linear-gradient(to right, purple, #5b0cc3);
+  backdrop-filter: blur(5px);
+  color: #ffffff;
+  transition: all 1s ease-out;
+}
+
+.icons button:hover {
+  background: #5b0cc3;
+  border-color: black;
+
 }
