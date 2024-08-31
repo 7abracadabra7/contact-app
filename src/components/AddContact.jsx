@@ -11,6 +11,13 @@ const AddContact = () => {
     email: "",
     number: "",
   });
+
+  const deleteHandler = (id) => {
+    console.log("delete", id);
+    const newContacts = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContacts);
+  };
+
   const changeInputHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -19,11 +26,8 @@ const AddContact = () => {
 
   const addContactHandler = () => {
     const contactId = uuidv4();
-    console.log(contactId);
     const newContact = { ...contact, id: contactId };
-    console.log(newContact, "new");
     setContacts((contacts) => [...contacts, newContact]);
-    console.log(contacts);
     setContact({
       id: "",
       name: "",
@@ -64,7 +68,7 @@ const AddContact = () => {
         value={contact.number}
       />
       <button onClick={addContactHandler}>Add Contact</button>
-      <ContactsList contacts={contacts} />
+      <ContactsList contacts={contacts} onDelete={deleteHandler} />
     </div>
   );
 };

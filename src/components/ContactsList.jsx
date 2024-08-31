@@ -1,30 +1,24 @@
 /* eslint-disable react/prop-types */
+import ContactItem from "./ContactItem";
 import styles from "./ContactsList.module.css";
 
-const ContactsList = ({ contacts }) => {
+const ContactsList = ({ contacts, onDelete }) => {
   return (
     <div>
       <h3>Contacts List</h3>
       <div className={styles.container}>
-        {contacts.map((contact) => (
-          <div className={styles.card} key={contact.id}>
-            <div className={styles.profileImage}>
-              <img src="../../images/4.avif"></img>
-            </div>
-            <div className={styles.infoItems}>
-              <p>
-                {contact.name} {contact.lastname}
-              </p>
-              <p>{contact.email}</p>
-              <p>{contact.number}</p>
-            </div>
-            <div className={styles.icons}>
-              <span>👁</span>
-              <span>✏</span>
-              <span>🗑</span>
-            </div>
-          </div>
-        ))}
+        {console.log(contacts)}
+        {contacts.length ? (
+          contacts.map((contact) => (
+            <ContactItem
+              key={contact.id}
+              contact={contact}
+              onDelete={onDelete}
+            />
+          ))
+        ) : (
+          <p>There is no contacts yet!</p>
+        )}
       </div>
     </div>
   );
