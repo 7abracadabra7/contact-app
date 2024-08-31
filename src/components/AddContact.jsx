@@ -1,8 +1,11 @@
 import { useState } from "react";
+import ContactsList from "./ContactsList";
+import { v4 as uuidv4 } from "uuid";
 
 const AddContact = () => {
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState({
+    id: "",
     name: "",
     lastname: "",
     email: "",
@@ -15,10 +18,14 @@ const AddContact = () => {
   };
 
   const addContactHandler = () => {
-    console.log(contacts);
-    setContacts((contacts) => [...contacts, contact]);
+    const contactId = uuidv4();
+    console.log(contactId);
+    const newContact = { ...contact, id: contactId };
+    console.log(newContact, "new");
+    setContacts((contacts) => [...contacts, newContact]);
     console.log(contacts);
     setContact({
+      id: "",
       name: "",
       lastname: "",
       email: "",
@@ -57,6 +64,7 @@ const AddContact = () => {
         value={contact.number}
       />
       <button onClick={addContactHandler}>Add Contact</button>
+      <ContactsList contacts={contacts} />
     </div>
   );
 };
