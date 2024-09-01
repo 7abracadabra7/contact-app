@@ -27,12 +27,18 @@ const AddContact = () => {
 
   const addContactHandler = () => {
     const contactId = uuidv4();
-    const newContact = { ...contact, id: contactId };
+    const newContact = {
+      ...contact,
+      id: contactId,
+      fullname: contact.name + " " + contact.lastname,
+    };
     setContacts((contacts) => [...contacts, newContact]);
+    console.log(contacts);
     setContact({
       id: "",
       name: "",
       lastname: "",
+      fullname: "",
       email: "",
       number: "",
     });
@@ -41,6 +47,7 @@ const AddContact = () => {
   return (
     <div className={styles.container}>
       <input
+        className={styles.input}
         type="text"
         placeholder="Name"
         name="name"
@@ -48,6 +55,7 @@ const AddContact = () => {
         value={contact.name}
       />
       <input
+        className={styles.input}
         type="text"
         placeholder="Last Name"
         name="lastname"
@@ -55,6 +63,7 @@ const AddContact = () => {
         value={contact.lastname}
       />
       <input
+        className={styles.input}
         type="text"
         placeholder="Email"
         name="email"
@@ -62,6 +71,7 @@ const AddContact = () => {
         value={contact.email}
       />
       <input
+        className={styles.input}
         type="number"
         placeholder="Phone Number"
         name="number"
