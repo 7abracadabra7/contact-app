@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+.inputContainer {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
 .input {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.3);
@@ -23,8 +28,23 @@
   color: #ffffff;
 }
 
-button {
-  width: 100%;
+.addBtn {
+  width: 48%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  padding: 20px 55px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+}
+.updateBtn {
+  width: 48%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(100%);
   padding: 20px 55px;
   border-radius: 8px;
   outline: none;

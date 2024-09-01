@@ -5,7 +5,7 @@ import styles from "./ContactsList.module.css";
 import { useEffect, useState } from "react";
 import { searchContacts } from "../helper/filterContacts";
 
-const ContactsList = ({ contacts, onDelete }) => {
+const ContactsList = ({ contacts, onDelete, onEdit }) => {
   const [filteredContacts, setFilteredContacts] = useState([]);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const ContactsList = ({ contacts, onDelete }) => {
               key={contact.id}
               contact={contact}
               onDelete={onDelete}
+              onEdit={onEdit}
             />
           ))
         ) : (

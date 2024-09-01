@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ContactItem.module.css";
-const ContactItem = ({ contact, onDelete }) => {
+const ContactItem = ({ contact, onDelete, onEdit }) => {
   console.log({ contact });
   return (
     <div className={styles.card}>
@@ -15,7 +15,7 @@ const ContactItem = ({ contact, onDelete }) => {
         <p>{contact.number}</p>
       </div>
       <div className={styles.icons}>
-        <button>Edit</button>
+        <button onClick={() => onEdit(contact.id)}>Edit</button>
         <button onClick={() => onDelete(contact.id)}>Delete</button>
       </div>
     </div>
