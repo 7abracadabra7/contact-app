@@ -11,8 +11,6 @@ const ContactsList = ({ contacts, onDelete, onEdit }) => {
   useEffect(() => {
     setFilteredContacts(contacts);
   }, [contacts]);
-  console.log("contacts", contacts);
-  console.log("filter", filteredContacts);
   const searchHandler = (name) => {
     console.log("your searched value", name);
     const displayedContacts = searchContacts(contacts, name);
