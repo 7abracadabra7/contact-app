@@ -59,7 +59,12 @@ const AddContact = ({ setShowModal }) => {
         id: id,
         name: contactToEdit.name,
         lastname: contactToEdit.lastname,
-        fullname: contactToEdit.name + " " + contactToEdit.lastname,
+        fullname:
+          contactToEdit.name +
+          " " +
+          contactToEdit.lastname +
+          " " +
+          contactToEdit.email,
         email: contactToEdit.email,
         number: contactToEdit.number,
       });
@@ -88,7 +93,7 @@ const AddContact = ({ setShowModal }) => {
         targetContact.push({
           contact,
           id: contactId,
-          fullname: contact.name + " " + contact.lastname,
+          fullname: contact.name + " " + contact.lastname + " " + contact.email,
         });
         console.log("new", targetContact);
       } else if (flag == true) {
@@ -123,7 +128,7 @@ const AddContact = ({ setShowModal }) => {
         const newContact = {
           ...contact,
           id: contactId,
-          fullname: contact.name + " " + contact.lastname,
+          fullname: contact.name + " " + contact.lastname + " " + contact.email,
         };
         if (
           newContact.name == "" ||
