@@ -1,6 +1,7 @@
 .searchInput {
-    width: 100%;
-    padding: 10px 15px;
-    /* border-radius: 8px; */
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-image: linear-gradient(to right, purple, #5b0cc3) 1;
+  border-width: 3px;
 }
