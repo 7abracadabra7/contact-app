@@ -4,11 +4,12 @@
   flex-direction: column;
   margin-top: 15px;
   align-items: center;
+  /* justify-content: center; */
 }
 
 .inputContainer {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .input {
@@ -49,4 +50,9 @@
   border-radius: 8px;
   outline: none;
   border: none;
+}
+
+.messageContainer {
+  margin-top: 1.5rem;
+  color: red;
 }

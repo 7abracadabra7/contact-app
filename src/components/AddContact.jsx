@@ -15,6 +15,10 @@ const AddContact = ({ setShowModal }) => {
 
   const [edit, setEdit] = useState(false);
   const [contactId, setContactId] = useState(0);
+  const [error, setError] = useState({
+    error: false,
+    message: "",
+  });
 
   const deleteHandler = (id) => {
     console.log("delete", id);
@@ -90,17 +94,40 @@ const AddContact = ({ setShowModal }) => {
       id: contactId,
       fullname: contact.name + " " + contact.lastname,
     };
-    setContacts((contacts) => [...contacts, newContact]);
-    setShowModal(true);
-
-    setContact({
-      id: "",
-      name: "",
-      lastname: "",
-      fullname: "",
-      email: "",
-      number: "",
-    });
+    if (
+      newContact.name == "" ||
+      newContact.email == "" ||
+      newContact.number == ""
+    ) {
+      setError({
+        error: true,
+        message: "Please fill the inputs",
+      });
+    } else if (
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        newContact.email
+      ) == false
+    ) {
+      setError({
+        error: true,
+        message: "please enter a valid email",
+      });
+    } else {
+      setContacts((contacts) => [...contacts, newContact]);
+      setShowModal(true);
+      setError({
+        error: false,
+        message: "",
+      });
+      setContact({
+        id: "",
+        name: "",
+        lastname: "",
+        fullname: "",
+        email: "",
+        number: "",
+      });
+    }
   };
 
   return (
@@ -152,6 +179,8 @@ const AddContact = ({ setShowModal }) => {
           Add Contact
         </button>
       </div>
+      {error && <div className={styles.messageContainer}>{error.message}</div>}
+
       <ContactsList
         contacts={contacts}
         onDelete={deleteHandler}

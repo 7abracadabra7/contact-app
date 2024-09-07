@@ -6,7 +6,8 @@ import { useState } from "react";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  console.log(showModal)
+
+  console.log(showModal);
   return (
     <div className={styles.container}>
       <Header />
