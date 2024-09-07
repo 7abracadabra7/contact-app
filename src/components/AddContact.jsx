@@ -175,9 +175,9 @@ const AddContact = ({ setShowModal }) => {
           </button>
         )}
 
-        <button className={styles.addBtn} onClick={addContactHandler}>
+        {!edit &&<button className={styles.addBtn} onClick={addContactHandler}>
           Add Contact
-        </button>
+        </button>}
       </div>
       {error && <div className={styles.messageContainer}>{error.message}</div>}
 

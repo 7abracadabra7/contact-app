@@ -30,7 +30,7 @@
 }
 
 .addBtn {
-  width: 48%;
+  width: 100%;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -41,7 +41,7 @@
   border: none;
 }
 .updateBtn {
-  width: 48%;
+  width: 100%;
   position: absolute;
   left: 0;
   bottom: 0;
