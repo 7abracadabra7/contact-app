@@ -127,7 +127,6 @@ const AddContact = ({ setShowModal }) => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire("New Contact Added", "", "success");
 
         const contactId = uuidv4();
         const newContact = {
