@@ -108,46 +108,61 @@ const AddContact = ({ setShowModal }) => {
   };
 
   const addContactHandler = () => {
-    const contactId = uuidv4();
-    const newContact = {
-      ...contact,
-      id: contactId,
-      fullname: contact.name + " " + contact.lastname,
-    };
-    if (
-      newContact.name == "" ||
-      newContact.email == "" ||
-      newContact.number == ""
-    ) {
-      setError({
-        error: true,
-        message: "Please fill the inputs",
-      });
-    } else if (
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        newContact.email
-      ) == false
-    ) {
-      setError({
-        error: true,
-        message: "please enter a valid email",
-      });
-    } else {
-      setContacts((contacts) => [...contacts, newContact]);
-      setShowModal(true);
-      setError({
-        error: false,
-        message: "",
-      });
-      setContact({
-        id: "",
-        name: "",
-        lastname: "",
-        fullname: "",
-        email: "",
-        number: "",
-      });
-    }
+    Swal.fire({
+      title: "Do you want to add this contact?",
+      // showDenyButton: true,c
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire("New Contact Added", "", "success");
+
+        const contactId = uuidv4();
+        const newContact = {
+          ...contact,
+          id: contactId,
+          fullname: contact.name + " " + contact.lastname,
+        };
+        if (
+          newContact.name == "" ||
+          newContact.email == "" ||
+          newContact.number == ""
+        ) {
+          setError({
+            error: true,
+            message: "Please fill the inputs",
+          });
+        } else if (
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            newContact.email
+          ) == false
+        ) {
+          setError({
+            error: true,
+            message: "please enter a valid email",
+          });
+        } else {
+          setContacts((contacts) => [...contacts, newContact]);
+          setShowModal(true);
+          setError({
+            error: false,
+            message: "",
+          });
+          setContact({
+            id: "",
+            name: "",
+            lastname: "",
+            fullname: "",
+            email: "",
+            number: "",
+          });
+        }
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   };
 
   return (
