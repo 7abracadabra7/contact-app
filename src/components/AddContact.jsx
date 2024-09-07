@@ -21,28 +21,32 @@ const AddContact = ({ setShowModal }) => {
     message: "",
   });
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (id, type) => {
     // const Swal = require("sweetalert2");
-
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
-        const newContacts = contacts.filter((contact) => contact.id !== id);
-        setContacts(newContacts);
-      }
-    });
+    if (type !== "update") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+          const newContacts = contacts.filter((contact) => contact.id !== id);
+          setContacts(newContacts);
+        }
+      });
+    } else {
+      const newContacts = contacts.filter((contact) => contact.id !== id);
+      setContacts(newContacts);
+    }
 
     console.log("after delete", contacts);
   };
@@ -88,7 +92,7 @@ const AddContact = ({ setShowModal }) => {
         before.push(cntct);
       } else if (cntct.id === contactId && !flag) {
         flag = true;
-        deleteHandler(contactId);
+        deleteHandler(contactId, "update");
 
         targetContact.push({
           contact,
@@ -110,6 +114,7 @@ const AddContact = ({ setShowModal }) => {
       email: "",
       number: "",
     });
+    setEdit(false);
   };
 
   const addContactHandler = () => {
