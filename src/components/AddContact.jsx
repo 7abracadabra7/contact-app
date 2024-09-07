@@ -2,6 +2,7 @@ import { useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./AddContact.module.css";
+import Swal from "sweetalert2";
 
 const AddContact = ({ setShowModal }) => {
   const [contacts, setContacts] = useState([]);
@@ -21,9 +22,28 @@ const AddContact = ({ setShowModal }) => {
   });
 
   const deleteHandler = (id) => {
-    console.log("delete", id);
-    const newContacts = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContacts);
+    // const Swal = require("sweetalert2");
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        const newContacts = contacts.filter((contact) => contact.id !== id);
+        setContacts(newContacts);
+      }
+    });
+
     console.log("after delete", contacts);
   };
 
@@ -175,9 +195,11 @@ const AddContact = ({ setShowModal }) => {
           </button>
         )}
 
-        {!edit &&<button className={styles.addBtn} onClick={addContactHandler}>
-          Add Contact
-        </button>}
+        {!edit && (
+          <button className={styles.addBtn} onClick={addContactHandler}>
+            Add Contact
+          </button>
+        )}
       </div>
       {error && <div className={styles.messageContainer}>{error.message}</div>}
 
