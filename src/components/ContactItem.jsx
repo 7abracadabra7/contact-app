@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./ContactItem.module.css";
-const ContactItem = ({ contact, onDelete, onEdit }) => {
+import { contactContext } from "./AddContact";
+
+const ContactItem = ({ contact }) => {
+  const { deleteHandler, editHandler } = useContext(contactContext);
   console.log({ contact });
   return (
     <div className={styles.card}>
@@ -15,8 +18,8 @@ const ContactItem = ({ contact, onDelete, onEdit }) => {
         <p>{contact.number}</p>
       </div>
       <div className={styles.icons}>
-        <button onClick={() => onEdit(contact.id)}>Edit</button>
-        <button onClick={() => onDelete(contact.id)}>Delete</button>
+        <button onClick={() => editHandler(contact.id)}>Edit</button>
+        <button onClick={() => deleteHandler(contact.id)}>Delete</button>
       </div>
     </div>
   );

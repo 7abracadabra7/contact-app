@@ -2,10 +2,13 @@
 import ContactItem from "./ContactItem";
 import Search from "./Search";
 import styles from "./ContactsList.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { searchContacts } from "../helper/filterContacts";
+import { contactContext } from "./AddContact";
 
-const ContactsList = ({ contacts, onDelete, onEdit }) => {
+const ContactsList = () => {
+  const { contacts } = useContext(contactContext);
+  console.log(contacts);
   const [filteredContacts, setFilteredContacts] = useState([]);
 
   useEffect(() => {
@@ -25,12 +28,8 @@ const ContactsList = ({ contacts, onDelete, onEdit }) => {
         {contacts.length > 0 ? <Search searchHandler={searchHandler} /> : ""}
         {contacts.length ? (
           filteredContacts.map((contact) => (
-            <ContactItem
-              key={contact.id}
-              contact={contact}
-              onDelete={onDelete}
-              onEdit={onEdit}
-            />
+
+            <ContactItem key={contact.id} contact={contact} />
           ))
         ) : (
           <p>There is no contacts yet!</p>

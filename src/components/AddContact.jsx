@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./AddContact.module.css";
 import Swal from "sweetalert2";
 
-const AddContact = ({ setShowModal }) => {
+export const contactContext = createContext();
+const AddContact = () => {
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState({
     id: "",
@@ -57,7 +58,6 @@ const AddContact = ({ setShowModal }) => {
     setContactId(id);
     const contactToEdit = contacts.find((contact) => contact.id === id);
     console.log("contact to edit", contactToEdit);
-    // console.log("contact", contactId);
     if (contactToEdit) {
       setContact({
         id: id,
@@ -127,7 +127,6 @@ const AddContact = ({ setShowModal }) => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-
         const contactId = uuidv4();
         const newContact = {
           ...contact,
@@ -154,7 +153,6 @@ const AddContact = ({ setShowModal }) => {
           });
         } else {
           setContacts((contacts) => [...contacts, newContact]);
-          setShowModal(true);
           setError({
             error: false,
             message: "",
@@ -226,12 +224,9 @@ const AddContact = ({ setShowModal }) => {
         )}
       </div>
       {error && <div className={styles.messageContainer}>{error.message}</div>}
-
-      <ContactsList
-        contacts={contacts}
-        onDelete={deleteHandler}
-        onEdit={editHandler}
-      />
+      <contactContext.Provider value={{ contacts, deleteHandler, editHandler }}>
+        <ContactsList />
+      </contactContext.Provider>
     </div>
   );
 };
