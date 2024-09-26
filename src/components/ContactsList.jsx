@@ -7,8 +7,8 @@ import { searchContacts } from "../helper/filterContacts";
 import { contactContext } from "./AddContact";
 
 const ContactsList = () => {
-  const { contacts } = useContext(contactContext);
-  console.log(contacts);
+  const { contacts, selected, setSelected, deleteMultipleItems } =
+    useContext(contactContext);
   const [filteredContacts, setFilteredContacts] = useState([]);
 
   useEffect(() => {
@@ -23,13 +23,29 @@ const ContactsList = () => {
 
   return (
     <div className={styles.container}>
-      <h3>Contacts List</h3>
+      <div className={styles.top}>
+        <h3>Contacts List</h3>
+        {!selected ? (
+          <button
+            className={styles.selectButton}
+            onClick={() => setSelected(true)}
+          >
+            Select Contacts
+          </button>
+        ) : (
+          <button
+            className={styles.selectButton}
+            onClick={() => deleteMultipleItems()}
+          >
+            Delete Contacts
+          </button>
+        )}
+      </div>
       <div className={styles.contacts}>
         {contacts.length > 0 ? <Search searchHandler={searchHandler} /> : ""}
         {contacts.length ? (
           filteredContacts.map((contact) => (
-
-            <ContactItem key={contact.id} contact={contact} />
+            <ContactItem key={contact.id} user={contact} />
           ))
         ) : (
           <p>There is no contacts yet!</p>

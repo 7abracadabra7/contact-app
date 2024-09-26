@@ -1,25 +1,65 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styles from "./ContactItem.module.css";
 import { contactContext } from "./AddContact";
 
-const ContactItem = ({ contact }) => {
-  const { deleteHandler, editHandler } = useContext(contactContext);
-  console.log({ contact });
+const ContactItem = ({ user }) => {
+  const {
+    deleteHandler,
+    editHandler,
+    selected,
+    selectedContacts,
+    setSelectedContacts,
+  } = useContext(contactContext);
+
+  useEffect(() => {}, [selectedContacts]);
+
+  //============== Select Handler ===============
+  const selectHandler = (event) => {
+    console.log(event.target.checked);
+    const value = event.target.value;
+    const isSelected = event.target.checked;
+
+    if (isSelected) {
+      setSelectedContacts([...selectedContacts, value]);
+      console.log("add", selectedContacts);
+    } else {
+      setSelectedContacts((prev) => {
+        return prev.filter((id) => {
+          return id !== value;
+        });
+      });
+      console.log("delete", selectedContacts);
+    }
+
+    console.log("final", selectedContacts);
+  };
+
+  // console.log("hi", contacts);
+
   return (
     <div className={styles.card}>
       <div className={styles.profileImage}>
-        <img src="../../images/4.avif"></img>
+        <img src="../../images/4.avif" />
+        {selected && (
+          <input
+            type="checkbox"
+            id={user.id}
+            value={user.id}
+            onChange={(event) => selectHandler(event)}
+            checked={selectedContacts.includes(user.id)}
+          />
+        )}
       </div>
       <div className={styles.infoItems}>
         <p>
-          {contact.name} {contact.lastname}
+          {user.name} {user.lastname}
         </p>
-        <p>{contact.email}</p>
-        <p>{contact.number}</p>
+        <p>{user.email}</p>
+        <p>{user.number}</p>
       </div>
       <div className={styles.icons}>
-        <button onClick={() => editHandler(contact.id)}>Edit</button>
-        <button onClick={() => deleteHandler(contact.id)}>Delete</button>
+        <button onClick={() => editHandler(user.id)}>Edit</button>
+        <button onClick={() => deleteHandler(user.id)}>Delete</button>
       </div>
     </div>
   );

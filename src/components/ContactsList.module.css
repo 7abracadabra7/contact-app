@@ -6,7 +6,16 @@
   padding: 1.5rem;
 }
 
+.top{
+  display: flex;
+  justify-content: space-between;
+}
+
 h3 {
   font-size: 1.5rem;
   margin-bottom: 0.7rem;
+}
+.selectButton {
+  padding: 0 10px;
+  height: 35px;
 }

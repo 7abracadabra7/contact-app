@@ -14,6 +14,8 @@ const AddContact = () => {
     email: "",
     number: "",
   });
+  const [selected, setSelected] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState([]);
 
   const [edit, setEdit] = useState(false);
   const [contactId, setContactId] = useState(0);
@@ -21,6 +23,25 @@ const AddContact = () => {
     error: false,
     message: "",
   });
+
+  const deleteMultipleItems = () => {
+    const newArray = contacts.filter((contact) => {
+      console.log("its me", contact);
+      if (
+        selectedContacts.some((user) => {
+          const isTrue = user == contact.id;
+          return isTrue;
+        })
+      ) {
+        console.log("selected", contact);
+      } else {
+        return contact;
+      }
+    });
+    setContacts(newArray);
+
+    console.log(contacts);
+  };
 
   const deleteHandler = (id, type) => {
     // const Swal = require("sweetalert2");
@@ -45,7 +66,9 @@ const AddContact = () => {
         }
       });
     } else {
+      console.log(`want to delete ${id}`);
       const newContacts = contacts.filter((contact) => contact.id !== id);
+      console.log("after", contact.id, id, newContacts);
       setContacts(newContacts);
     }
 
@@ -171,7 +194,7 @@ const AddContact = () => {
       }
     });
   };
-
+  console.log(contacts);
   return (
     <div className={styles.container}>
       <div className={styles.inputContainer}>
@@ -224,7 +247,19 @@ const AddContact = () => {
         )}
       </div>
       {error && <div className={styles.messageContainer}>{error.message}</div>}
-      <contactContext.Provider value={{ contacts, deleteHandler, editHandler }}>
+      <contactContext.Provider
+        value={{
+          contacts,
+          deleteHandler,
+          editHandler,
+          selected,
+          setSelected,
+          setContacts,
+          deleteMultipleItems,
+          selectedContacts,
+          setSelectedContacts,
+        }}
+      >
         <ContactsList />
       </contactContext.Provider>
     </div>

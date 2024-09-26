@@ -11,10 +11,25 @@
   justify-content: space-evenly;
   border-image: linear-gradient(to right, purple, #5b0cc3) 1;
 }
+.profileImage {
+  position: relative;
+}
 
 .profileImage img {
   width: 80px;
   border-radius: 50%;
+}
+
+.profileImage input {
+  position: absolute;
+  top: 30%;
+  left: 31%;
+  z-index: 500;
+}
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+  accent-color: rgb(96, 0, 192);
 }
 
 .infoItems {
