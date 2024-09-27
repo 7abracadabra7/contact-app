@@ -56,7 +56,7 @@ const AddContact = () => {
           console.error("Error deleting user:", error);
         })
     );
-
+    setSelected(false);
     console.log(contacts);
   };
 
