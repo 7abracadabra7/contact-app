@@ -1,12 +1,20 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./AddContact.module.css";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const contactContext = createContext();
 const AddContact = () => {
   const [contacts, setContacts] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/contacts")
+      .then((res) => setContacts(res.data))
+      .then(console.log("contacts", contacts));
+  }, []);
+
   const [contact, setContact] = useState({
     id: "",
     name: "",
@@ -61,15 +69,31 @@ const AddContact = () => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-          const newContacts = contacts.filter((contact) => contact.id !== id);
-          setContacts(newContacts);
+          // const newContacts = contacts.filter((contact) => contact.id !== id);
+          // setContacts(newContacts);
+          axios
+            .delete("http://localhost:8000/contacts/" + id)
+            .then((response) => {
+              console.log("User deleted successfully:", response.data);
+            })
+            .catch((error) => {
+              console.error("Error deleting user:", error);
+            });
         }
       });
     } else {
       console.log(`want to delete ${id}`);
-      const newContacts = contacts.filter((contact) => contact.id !== id);
-      console.log("after", contact.id, id, newContacts);
-      setContacts(newContacts);
+      // const newContacts = contacts.filter((contact) => contact.id !== id);
+      // console.log("after", contact.id, id, newContacts);
+      // setContacts(newContacts);
+      axios
+        .delete("http://localhost:8000/contacts/" + id)
+        .then((response) => {
+          console.log("User deleted successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting user:", error);
+        });
     }
 
     console.log("after delete", contacts);
@@ -122,6 +146,17 @@ const AddContact = () => {
           id: contactId,
           fullname: contact.name + " " + contact.lastname + " " + contact.email,
         });
+        axios
+          .post("http://localhost:8000/contacts", {
+            id: contactId,
+            name: contact.name,
+            lastname: contact.lastname,
+            fullname:
+              contact.name + " " + contact.lastname + " " + contact.email,
+            email: contact.email,
+            number: contact.number,
+          })
+          .then((res) => console.log("hello", res));
         console.log("new", targetContact);
       } else if (flag == true) {
         after.push(cntct);
@@ -137,6 +172,7 @@ const AddContact = () => {
       email: "",
       number: "",
     });
+
     setEdit(false);
   };
 
@@ -176,6 +212,17 @@ const AddContact = () => {
           });
         } else {
           setContacts((contacts) => [...contacts, newContact]);
+          axios
+            .post("http://localhost:8000/contacts", {
+              id: contactId,
+              name: contact.name,
+              lastname: contact.lastname,
+              fullname:
+                contact.name + " " + contact.lastname + " " + contact.email,
+              email: contact.email,
+              number: contact.number,
+            })
+            .then((res) => console.log("hello", res));
           setError({
             error: false,
             message: "",
