@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./AddContact.module.css";
@@ -34,7 +34,6 @@ const AddContact = () => {
 
   const deleteMultipleItems = () => {
     const newArray = contacts.filter((contact) => {
-      console.log("its me", contact);
       if (
         selectedContacts.some((user) => {
           const isTrue = user == contact.id;
@@ -47,12 +46,21 @@ const AddContact = () => {
       }
     });
     setContacts(newArray);
+    selectedContacts.map((item) =>
+      axios
+        .delete("http://localhost:8000/contacts/" + item)
+        .then((response) => {
+          console.log("User deleted successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting user:", error);
+        })
+    );
 
     console.log(contacts);
   };
 
   const deleteHandler = (id, type) => {
-    // const Swal = require("sweetalert2");
     if (type !== "update") {
       Swal.fire({
         title: "Are you sure?",
